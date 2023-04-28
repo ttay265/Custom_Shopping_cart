@@ -1,0 +1,42 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog title="{i18n>TITLE_CART_DIALOG}">
+		<content>
+			<Table items="{cart>/}">
+				<columns>
+					<Column>
+						<Label text="{i18n>product}"/>
+					</Column>
+					<Column>
+						<Label text="{i18n>orderQty}"/>
+					</Column>
+					<Column>
+						<Label text="{i18n>priceUnit}"/>
+					</Column>
+					<Column>
+						<Label text="{i18n>amount}"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem vAlign="Middle">
+						<cells>
+							<VBox>
+								<items>
+									<Title level="H4" text="{cart>Material}"/>
+									<Text text="{cart>Description}"/>
+								</items>
+							</VBox>
+							<Text id="_desc" text="{cart>OrderQuantity}"/>
+							<!-- <ObjectNumber state="{= ${products>inStock} > 0 ? 'Success' : 'Error' }" number="{products>inStock}"/> -->
+							<ObjectNumber number="{cart>Price}" unit="{cart>Currency}"/>
+							<ObjectNumber number="{= ${cart>Price} * ${cart>OrderQuantity} }" unit="{cart>Currency}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</content>
+		<buttons>
+			<Button type="Accept" text="{i18n>CHECKOUT}" press="onCheckoutPress"/>
+			<Button type="Transparent" text="{i18n>CANCEL}" press="onCartDialogClose"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

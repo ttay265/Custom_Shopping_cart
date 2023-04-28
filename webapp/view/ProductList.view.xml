@@ -1,0 +1,60 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="CusOrdCustomer_Order.controller.ProductList"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page title="{i18n>Title_ProductList}" showFooter="true">
+		<content>
+			<Toolbar>
+				<SearchField/>
+				<Button icon="sap-icon://filter" text="{i18n>FILTER}"/>
+				<Button id="btnSort" icon="{= ${viewModel>/sortOrder} ? 'sap-icon://sort-ascending' : 'sap-icon://sort-descending' }"
+				text="{i18n>SORT}" press="onSort"/>
+			</Toolbar>
+			<Table id="tableProductList" mode="SingleSelectMaster" items="{product>/}" growingScrollToLoad="true" growing="true" >
+				<columns>
+					<Column>
+						<Label text="{i18n>product}"/>
+					</Column>
+					<Column>
+						<Label text="{i18n>orderQty}"/>
+					</Column>
+					<Column>
+						<Label text="{i18n>inStock}"/>
+					</Column>
+					<Column visible="{viewModel>/hidePrice}">
+						<Label text="{i18n>price}"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem vAlign="Middle">
+						<cells>
+							<VBox>
+								<items>
+									<Link emphasized="true" text="{product>Material}" press="onProductPress"/>
+									<Text text="{product>Description}"/>
+								</items>
+							</VBox>
+							<HBox width="9rem" justifyContent="SpaceBetween" alignItems="Center">
+								<items>
+									<ObjectNumber />
+									<Input width="4rem" value="0" change="onOrderQtyChange"/>
+								</items>
+							</HBox>
+							<!-- <ObjectNumber state="{= ${products>inStock} > 0 ? 'Success' : 'Error' }" number="{products>inStock}"/> -->
+							<ObjectNumber state="{ path:'product>InStock', formatter: '.formatter.stockStatus' }" number="{product>InStock}"/>
+							<ObjectNumber  number="{product>Price}" unit="{product>Currency}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</content>
+		<footer>
+			<Toolbar>
+				<content>
+					<Button width="25%" icon="sap-icon://bar-code" text="{i18n>scan}"/>
+					<Button width="25%" icon="sap-icon://less" press="onLessQty"/>
+					<Button width="25%" icon="sap-icon://add" press="onAddQty"/>
+					<Button width="25%" icon="sap-icon://cart" press="onCartPress" text="{i18n>cart}"/>
+				</content>
+			</Toolbar>
+		</footer>
+	</Page>
+</mvc:View>
